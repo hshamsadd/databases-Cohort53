@@ -95,7 +95,9 @@ async function seedDatabase() {
     });
 
     console.log('\nDatabase seeded successfully!');
-  } catch (error) {
+  } 
+  
+  catch (error) {
     console.error('Error seeding database:', error);
   } finally {
     await client.end();
