@@ -1,0 +1,15 @@
+{
+  "name": "study-guide",
+  "version": "1.0.0",
+  "main": "connectDatabase.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "pg": "^8.16.3"
+  }
+}
