@@ -214,29 +214,129 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
 
 ```sql
 -- Try to insert a student with an existing student_id (will fail because of PRIMARY KEY constraint)
--- INSERT INTO Students (student_id, student_name, age) VALUES (101, 'David', 22);
+INSERT INTO Students (student_id, student_name, age) VALUES (101, 'David', 22);
 ```
+
 
 
 ![Students table](./images/7.png)
 
 
+
+* Why the error:
+
+* student_id is a Primary Key.
+
+* Primary Keys must be unique. You already have a student with student_id = 101.
+
+* Takeaway:
+
+* You cannot have two rows with the same Primary Key. Each student must have a unique ID.
+
+
+
 ```sql
 -- Try to insert an enrollment for a student that doesn't exist (will fail because of FOREIGN KEY constraint)
--- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
+INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
 ```
+
 
 
 ![Students table](./images/8.png)
 
 
+
+* Why the error:
+
+* student_id in Enrollments is a Foreign Key pointing to Students.
+
+* There is no student with ID 999 in the Students table.
+
+* Takeaway:
+
+* Foreign Keys make sure that the student or course actually exists before you can link it. You can't enroll a student that doesn’t exist.
+
+
+
 ```sql
 -- Try to insert the exact same enrollment again (will fail because of COMPOSITE PRIMARY KEY constraint)
--- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'CS101', '2023-09-01');
+INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'CS101', '2023-09-01');
 ```
 
 
+
 ![Students table](./images/9.png)
+
+
+
+
+
+* Why the error:
+
+* Enrollments has a Composite Primary Key (student_id, course_id).
+
+* This means that the same student cannot be enrolled in the same course twice.
+
+* Takeaway:
+
+* Composite Primary Keys prevent duplicate relationships. One student can’t be enrolled in the same course more than once.
+
+
+```mermaid
+erDiagram
+    STUDENTS {
+        INT student_id PK
+        VARCHAR student_name
+        INT age
+    }
+
+    COURSES {
+        VARCHAR course_id PK
+        VARCHAR course_name
+        VARCHAR instructor
+    }
+
+    ENROLLMENTS {
+        INT student_id FK
+        VARCHAR course_id FK
+        DATE enrollment_date
+        PK(student_id, course_id)
+    }
+
+    STUDENTS ||--o{ ENROLLMENTS : has
+    COURSES ||--o{ ENROLLMENTS : has
+    ```
+
+
+```mermaid
+erDiagram
+
+Students: Each student has a unique student_id.
+Courses: Each course has a unique course_id.
+Enrollments: Links students to courses.
+Composite Primary Key = (student_id, course_id) → ensures a student cannot enroll in the same course twice.
+Foreign Keys → make sure student_id exists in Students and course_id exists in Courses.
+✅ Summary of lessonsConstraint TypeWhat it doesError happens when…TakeawayPrimary KeyUnique identifier for a rowYou try to insert a duplicateEach row must have a unique IDForeign KeyLinks to another tableYou reference something that doesn't existYou can only link to valid rowsComposite Primary KeyUnique combination of two or more columnsYou insert the same combination twicePrevents duplicate relationships
+```
+
+
+
+- **Students**: Each student has a unique `student_id`.
+- **Courses**: Each course has a unique `course_id`.
+- **Enrollments**: Links students to courses.  
+  - Composite Primary Key = `(student_id, course_id)` → ensures a student cannot enroll in the same course twice.  
+  - Foreign Keys → make sure `student_id` exists in Students and `course_id` exists in Courses.
+
+---
+
+## ✅ Summary of lessons
+
+| Constraint Type         | What it does                          | Error happens when…                       | Takeaway                                      |
+|-------------------------|--------------------------------------|------------------------------------------|-----------------------------------------------|
+| Primary Key             | Unique identifier for a row          | You try to insert a duplicate            | Each row must have a unique ID               |
+| Foreign Key             | Links to another table               | You reference something that doesn't exist | You can only link to valid rows             |
+| Composite Primary Key   | Unique combination of two or more columns | You insert the same combination twice   | Prevents duplicate relationships            |
+
 
 
 
@@ -340,10 +440,11 @@ runChecks();
 ```
 
 **How to run this Node.js example:**
-1.  Save the code above into a file named `check_keys.js`.
+1.  Go to `js-code` folder and open a JS file named `CheckingDataWithNode.js`.
 2.  Open your terminal or command prompt.
-3.  Navigate to the folder where you saved the file.
-4.  Run the command: `node check_keys.js`
+3.  Navigate to the `js-code` folder where the file is saved.
+4.  Make sure you first drop demo_db database in pgAdmin 4.
+4.  Run the command: `node CheckingDataWithNode.js`
 
 You will see the data from your `Students` and `Enrollments` tables printed in your console, showing how the keys organize the data.
 
@@ -357,7 +458,7 @@ You will see the data from your `Students` and `Enrollments` tables printed in y
     ```sql
     INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
     ```
-3.  **Node.js:** Modify `check_keys.js` to also fetch and print data from the `Courses` table. (Hint: Add a new `async function checkCourses(client)` and call it in `runChecks()`).
+3.  **Node.js:** Modify `CheckingDataWithNode.js` to also fetch and print data from the `Courses` table. (Hint: Add a new `async function checkCourses(client)` and call it in `runChecks()`).
 
 ### The Main Idea (Essence)
 
