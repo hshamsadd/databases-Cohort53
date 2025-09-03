@@ -1,10 +1,11 @@
+-- Active: 1755975204608@@localhost@5432@demoblicblicblic
 -- Drop tables if they exist to start fresh (optional, for testing)
-DROP TABLE IF EXISTS StudentCourses;
-DROP TABLE IF EXISTS Students;
-DROP TABLE IF EXISTS Courses;
-DROP TABLE IF EXISTS EmployeeCars;
-DROP TABLE IF EXISTS Employees;
-DROP TABLE IF EXISTS Departments;
+    DROP TABLE IF EXISTS StudentCourses CASCADE;
+    DROP TABLE IF EXISTS Students CASCADE;
+    DROP TABLE IF EXISTS Courses CASCADE;
+    DROP TABLE IF EXISTS EmployeeCars CASCADE;
+    DROP TABLE IF EXISTS Employees CASCADE;
+    DROP TABLE IF EXISTS Departments CASCADE;
 
 -- 1. One-to-One Example: Employees and Company Cars
 -- Each employee gets one car, and each car belongs to one employee.

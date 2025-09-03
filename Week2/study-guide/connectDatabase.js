@@ -35,3 +35,5 @@ export async function setupDatabase(dropAndCreate = false) {
   console.log('Connected to "demo_db".');
   return client; // return the client for reuse
 }
+
+//setupDatabase(true)
