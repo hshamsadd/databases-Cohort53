@@ -284,6 +284,9 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 
 ```mermaid
 erDiagram
+    STUDENTS ||--o{ ENROLLMENTS : has
+    COURSES ||--o{ ENROLLMENTS : has
+
     STUDENTS {
         INT student_id PK
         VARCHAR student_name
@@ -302,23 +305,7 @@ erDiagram
         DATE enrollment_date
         PK(student_id, course_id)
     }
-
-    STUDENTS ||--o{ ENROLLMENTS : has
-    COURSES ||--o{ ENROLLMENTS : has
     ```
-
-
-```mermaid
-erDiagram
-
-Students: Each student has a unique student_id.
-Courses: Each course has a unique course_id.
-Enrollments: Links students to courses.
-Composite Primary Key = (student_id, course_id) → ensures a student cannot enroll in the same course twice.
-Foreign Keys → make sure student_id exists in Students and course_id exists in Courses.
-✅ Summary of lessonsConstraint TypeWhat it doesError happens when…TakeawayPrimary KeyUnique identifier for a rowYou try to insert a duplicateEach row must have a unique IDForeign KeyLinks to another tableYou reference something that doesn't existYou can only link to valid rowsComposite Primary KeyUnique combination of two or more columnsYou insert the same combination twicePrevents duplicate relationships
-```
-
 
 
 - **Students**: Each student has a unique `student_id`.
@@ -342,101 +329,8 @@ Foreign Keys → make sure student_id exists in Students and course_id exists in
 
 **2. Checking Data with Node.js**
 
-To see how Node.js interacts with these tables, you'll need a simple Node.js project set up to connect to your PostgreSQL database. Here's how you can do it with the connection method you provided.
+To see how Node.js interacts with these tables, refere to refer to `js-code` folder.
 
-```javascript
-import { setupDatabase } from './connectDatabase.js';
-
-async function createTables(client) {
-  await client.query(`
-    DROP TABLE IF EXISTS Enrollments CASCADE;
-    DROP TABLE IF EXISTS Students CASCADE;
-    DROP TABLE IF EXISTS Courses CASCADE;
-
-    CREATE TABLE Students (
-        student_id INT PRIMARY KEY,
-        student_name VARCHAR(100) NOT NULL,
-        age INT
-    );
-    INSERT INTO Students (student_id, student_name, age) VALUES
-    (101, 'Alice', 20),
-    (102, 'Bob', 21),
-    (103, 'Charlie', 20);
-
-    CREATE TABLE Courses (
-        course_id VARCHAR(10) PRIMARY KEY,
-        course_name VARCHAR(100) NOT NULL,
-        instructor VARCHAR(100)
-    );
-    INSERT INTO Courses (course_id, course_name, instructor) VALUES
-    ('CS101', 'Intro to Computer Science', 'Mr. Smith'),
-    ('MA201', 'Calculus I', 'Ms. Jones');
-
-    CREATE TABLE Enrollments (
-        student_id INT,
-        course_id VARCHAR(10),
-        enrollment_date DATE,
-        PRIMARY KEY (student_id, course_id),
-        FOREIGN KEY (student_id) REFERENCES Students(student_id),
-        FOREIGN KEY (course_id) REFERENCES Courses(course_id)
-    );
-    INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
-    (101, 'CS101', '2023-09-01'),
-    (101, 'MA201', '2023-09-01'),
-    (102, 'CS101', '2023-09-05');
-  `);
-  console.log('Tables created and populated.');
-}
-
-async function checkStudents(client) {
-  try {
-    const res = await client.query('SELECT * FROM Students;');
-    console.log('--- Students Table ---');
-    res.rows.forEach(row => console.log(row));
-  } catch (err) {
-    console.error('Error fetching students:', err.message);
-  }
-}
-
-async function checkEnrollments(client) {
-  try {
-    const res = await client.query('SELECT * FROM Enrollments;');
-    console.log('\n--- Enrollments Table ---');
-    res.rows.forEach(row => console.log(row));
-  } catch (err) {
-    console.error('Error fetching enrollments:', err.message);
-  }
-}
-
-async function checkCourses(client) {
-  try {
-    const res = await client.query('SELECT * FROM Courses;');
-    console.log('\n--- Courses Table ---');
-    res.rows.forEach(row => console.log(row));
-  } catch (err) {
-    console.error('Error fetching courses:', err.message);
-  }
-}
-
-async function runChecks() {
-  let client;
-  try {
-    client = await setupDatabase(true);
-    await createTables(client);
-    await checkStudents(client);
-    await checkEnrollments(client);
-    await checkCourses(client);
-  } catch (error) {
-    console.error('An error occurred:', error);
-  } finally {
-    if (client) {
-      await client.end();
-      console.log('Disconnected from "demo_db".');
-    }
-  }
-}
-
-runChecks();
 ```
 
 **How to run this Node.js example:**
@@ -446,18 +340,10 @@ runChecks();
 4.  Make sure you first drop demo_db database in pgAdmin 4.
 4.  Run the command: `node CheckingDataWithNode.js`
 
-You will see the data from your `Students` and `Enrollments` tables printed in your console, showing how the keys organize the data.
+You will see the data from your `Students`, `Courses` and `Enrollments` tables printed in your console, showing how the keys organize the data.
 
 ### Exercise
 
-1.  **pgAdmin 4:** Try to insert a new student into the `Students` table with `student_id = 101`. What error do you get? Why?
-    ```sql
-    INSERT INTO Students (student_id, student_name, age) VALUES (101, 'David', 22);
-    ```
-2.  **pgAdmin 4:** Try to insert an enrollment into the `Enrollments` table for `student_id = 999` and `course_id = 'CS101'`. What error do you get? Why?
-    ```sql
-    INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
-    ```
 3.  **Node.js:** Modify `CheckingDataWithNode.js` to also fetch and print data from the `Courses` table. (Hint: Add a new `async function checkCourses(client)` and call it in `runChecks()`).
 
 ### The Main Idea (Essence)
