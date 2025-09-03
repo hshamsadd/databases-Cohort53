@@ -284,30 +284,30 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 
 ```mermaid
 erDiagram
-    STUDENTS ||--o{ ENROLLMENTS : has
-    COURSES ||--o{ ENROLLMENTS : has
+    STUDENTS ||--o{ ENROLLMENTS : "enrolled in"
+    COURSES ||--o{ ENROLLMENTS : "included in"
 
     STUDENTS {
-        INT student_id PK
+        INT student_id PK "Primary Key"
         VARCHAR student_name
         INT age
     }
 
     COURSES {
-        VARCHAR course_id PK
+        VARCHAR course_id PK "Primary Key"
         VARCHAR course_name
         VARCHAR instructor
     }
 
     ENROLLMENTS {
-        INT student_id FK
-        VARCHAR course_id FK
+        INT student_id FK "Foreign Key → STUDENTS"
+        VARCHAR course_id FK "Foreign Key → COURSES"
         DATE enrollment_date
-        PK(student_id, course_id)
+        PK(student_id, course_id) "Composite Primary Key"
     }
-    ```
-
 ```
+
+
 - **Students**: Each student has a unique `student_id`.
 - **Courses**: Each course has a unique `course_id`.
 - **Enrollments**: Links students to courses.  
