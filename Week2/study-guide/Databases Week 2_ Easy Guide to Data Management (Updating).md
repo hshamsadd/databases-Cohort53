@@ -282,46 +282,89 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 * Composite Primary Keys prevent duplicate relationships. One student can’t be enrolled in the same course more than once.
 
 
+
 **ERD Representation (Conceptual - using a simple text-based diagram for clarity):**
 
 
-```mermaid
-%% Infographic-style ERD with colors and card styling
-classDiagram
-    %% STUDENTS table card
-    class STUDENTS {
-        <<Table>>
-        +student_id : INT (PK)
-        +student_name : VARCHAR
-        +age : INT
-    }
 
-    %% COURSES table card
-    class COURSES {
-        <<Table>>
-        +course_id : VARCHAR (PK)
-        +course_name : VARCHAR
-        +instructor : VARCHAR
-    }
+![Students table](./images/0.png)
 
-    %% ENROLLMENTS table card
-    class ENROLLMENTS {
-        <<Table>>
-        +student_id : INT (FK)
-        +course_id : VARCHAR (FK)
-        +enrollment_date : DATE
-        +PK(student_id, course_id)
-    }
 
-    %% Relationships
-    STUDENTS "1" --> "0..*" ENROLLMENTS : "enrolled in"
-    COURSES "1" --> "0..*" ENROLLMENTS : "included in"
 
-    %% Styling for cards
-    class STUDENTS fill:#ffcccb,stroke:#ff0000,stroke-width:2px,rounded
-    class COURSES fill:#cce5ff,stroke:#0066cc,stroke-width:2px,rounded
-    class ENROLLMENTS fill:#d4edda,stroke:#28a745,stroke-width:2px,rounded
-```
+Diagram Elements Explained
+
+1. Connecting Lines
+Purpose: Represent relationships between tables/entities
+
+Meaning: Show how tables are connected through foreign key references
+
+2. Crow's Feet Notation
+Symbol: >-----< or similar branching line endings
+
+Meaning: Represents "many" or "multiple" in relationships
+
+In the diagram:
+
+The crow's foot at the ENROLLMENTS end indicates that:
+
+One STUDENT can have MANY ENROLLMENTS
+
+One COURSE can have MANY ENROLLMENTS
+
+3. Circles
+Symbol: O typically at the end of relationship lines
+
+Meaning: Represents "zero" or "optional" in relationships
+
+In standard notation:
+
+A circle would mean "zero" (optional participation)
+
+No circle means "one" (mandatory participation)
+
+The  Specific Relationships:
+
+1. STUDENTS → ENROLLMENTS Relationship
+Type: One-to-Many
+
+Reading: One STUDENT can have MANY ENROLLMENTS
+
+Implementation: The student_id foreign key in ENROLLMENTS references the student_id primary key in STUDENTS
+
+2. COURSES → ENROLLMENTS Relationship
+Type: One-to-Many
+
+Reading: One COURSE can have MANY ENROLLMENTS
+
+Implementation: The course_id foreign key in ENROLLMENTS references the course_id primary key in COURSES
+
+3. STUDENTS ↔ COURSES Relationship
+Type: Many-to-Many (implemented through ENROLLMENTS junction table)
+
+Reading: Many STUDENTS can enroll in Many COURSES
+
+Implementation: The ENROLLMENTS table connects both entities with foreign keys
+
+
+Key Takeaways:
+
+Crow's feet (>---<) indicate the "many" side of a relationship
+
+Straight lines (|---|) indicate the "one" side of a relationship
+
+Circles (O) would indicate optional participation (zero occurrences allowed)
+
+No circles indicate mandatory participation (at least one occurrence required)
+
+In the diagram, the relationships show that:
+
+A student must have at least one enrollment (mandatory)
+
+A course must have at least one enrollment (mandatory)
+
+A student can have multiple enrollments (many)
+
+A course can have multiple enrollments (many)
 
 
 - **Students**: Each student has a unique `student_id`.
