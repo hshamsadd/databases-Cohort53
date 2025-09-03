@@ -14,6 +14,8 @@ CREATE TABLE Employees (
     employee_name VARCHAR(100) NOT NULL
 );
 
+SELECT * FROM Employees;
+
 CREATE TABLE EmployeeCars (
     car_id INT PRIMARY KEY, -- Unique ID for each car
     employee_id INT UNIQUE, -- This is the Foreign Key, linking to Employees.employee_id
@@ -22,13 +24,19 @@ CREATE TABLE EmployeeCars (
     FOREIGN KEY (employee_id) REFERENCES Employees(employee_id)
 );
 
+SELECT * FROM EmployeeCars;
+
 INSERT INTO Employees (employee_id, employee_name) VALUES
 (1, 'Alice'),
 (2, 'Bob');
 
+SELECT * FROM Employees;
+
 INSERT INTO EmployeeCars (car_id, employee_id, car_model) VALUES
 (101, 1, 'Toyota Camry'),
 (102, 2, 'Honda Civic');
+
+SELECT * FROM EmployeeCars;
 
 -- 2. One-to-Many Example: Departments and Employees
 -- One department has many employees, but each employee works for only one department.
@@ -38,20 +46,32 @@ CREATE TABLE Departments (
     dept_name VARCHAR(100) NOT NULL
 );
 
+SELECT * FROM Departments;
+
 -- We already have an Employees table, let's add a dept_id to it
 ALTER TABLE Employees
 ADD COLUMN dept_id INT,
 ADD CONSTRAINT fk_dept FOREIGN KEY (dept_id) REFERENCES Departments(dept_id);
+
+SELECT * FROM Employees;
 
 INSERT INTO Departments (dept_id, dept_name) VALUES
 (10, 'Sales'),
 (20, 'Marketing'),
 (30, 'HR');
 
+SELECT * FROM Departments;
+
 -- Update employees to assign them to departments
 UPDATE Employees SET dept_id = 10 WHERE employee_id = 1; -- Alice in Sales
 UPDATE Employees SET dept_id = 20 WHERE employee_id = 2; -- Bob in Marketing
+
+SELECT * FROM Employees;
+
 INSERT INTO Employees (employee_id, employee_name, dept_id) VALUES (3, 'Charlie', 10); -- Charlie in Sales
+
+SELECT * FROM Employees;
+
 
 -- 3. Many-to-Many Example: Students and Courses
 -- One student can take many courses, and one course can have many students.
@@ -61,10 +81,14 @@ CREATE TABLE Students (
     student_name VARCHAR(100) NOT NULL
 );
 
+SELECT * FROM Students;
+
 CREATE TABLE Courses (
     course_id VARCHAR(10) PRIMARY KEY,
     course_name VARCHAR(100) NOT NULL
 );
+
+SELECT * FROM Courses;
 
 -- This is our JUNCTION TABLE for Many-to-Many relationship
 CREATE TABLE StudentCourses (
@@ -75,20 +99,38 @@ CREATE TABLE StudentCourses (
     FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 );
 
+SELECT * FROM StudentCourses;
+
 INSERT INTO Students (student_id, student_name) VALUES
 (101, 'Alice Student'),
 (102, 'Bob Student');
 
+SELECT * FROM Students;
+
 INSERT INTO Courses (course_id, course_name) VALUES
 ('MATH101', 'Basic Math'),
 ('ENG101', 'English Writing');
+
+SELECT * FROM Courses;
 
 INSERT INTO StudentCourses (student_id, course_id) VALUES
 (101, 'MATH101'), -- Alice takes Math
 (101, 'ENG101'),  -- Alice also takes English
 (102, 'MATH101');  -- Bob takes Math
 
+SELECT * FROM StudentCourses;
 
+
+-- Exercise
+INSERT INTO Employees (employee_id, employee_name, dept_id) VALUES (4, 'Zain', NULL);
+SELECT * FROM Employees;
+INSERT INTO Employees (employee_id, employee_name, dept_id) VALUES (5, 'Hanna', 99);
+SELECT * FROM Employees;
+
+
+
+
+-------------------------------------
 -- View all data across all tables
 SELECT * FROM Employees;
 SELECT * FROM EmployeeCars;
