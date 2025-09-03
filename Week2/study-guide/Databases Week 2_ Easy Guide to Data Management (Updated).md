@@ -307,7 +307,7 @@ erDiagram
     }
     ```
 
-
+```
 - **Students**: Each student has a unique `student_id`.
 - **Courses**: Each course has a unique `course_id`.
 - **Enrollments**: Links students to courses.  
