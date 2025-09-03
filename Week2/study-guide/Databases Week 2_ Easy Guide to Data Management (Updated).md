@@ -286,28 +286,42 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 
 
 ```mermaid
-erDiagram
-    STUDENTS ||--o{ ENROLLMENTS : "enrolled in"
-    COURSES ||--o{ ENROLLMENTS : "included in"
+%% Infographic-style ERD with colors and card styling
 
-    STUDENTS {
-        INT student_id PK "Primary Key"
-        VARCHAR student_name
-        INT age
+classDiagram
+    %% STUDENTS table card
+    class STUDENTS {
+        <<Table>>
+        +student_id : INT (PK)
+        +student_name : VARCHAR
+        +age : INT
     }
 
-    COURSES {
-        VARCHAR course_id PK "Primary Key"
-        VARCHAR course_name
-        VARCHAR instructor
+    %% COURSES table card
+    class COURSES {
+        <<Table>>
+        +course_id : VARCHAR (PK)
+        +course_name : VARCHAR
+        +instructor : VARCHAR
     }
 
-    ENROLLMENTS {
-        INT student_id FK "Foreign Key → STUDENTS"
-        VARCHAR course_id FK "Foreign Key → COURSES"
-        DATE enrollment_date
-        PK(student_id, course_id) "Composite Primary Key"
+    %% ENROLLMENTS table card
+    class ENROLLMENTS {
+        <<Table>>
+        +student_id : INT (FK)
+        +course_id : VARCHAR (FK)
+        +enrollment_date : DATE
+        +PK(student_id, course_id)
     }
+
+    %% Relationships
+    STUDENTS "1" --> "0..*" ENROLLMENTS : "enrolled in"
+    COURSES "1" --> "0..*" ENROLLMENTS : "included in"
+
+    %% Styling for cards
+    class STUDENTS fill:#ffcccb,stroke:#ff0000,stroke-width:2px,rounded
+    class COURSES fill:#cce5ff,stroke:#0066cc,stroke-width:2px,rounded
+    class ENROLLMENTS fill:#d4edda,stroke:#28a745,stroke-width:2px,rounded
 ```
 
 
