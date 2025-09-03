@@ -184,6 +184,7 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
 
 -- Try to insert the exact same enrollment again (will fail because of COMPOSITE PRIMARY KEY constraint)
 -- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'CS101', '2023-09-01');
+![Students table](./images/1.png)
 ```
 
 **2. Checking Data with Node.js**
