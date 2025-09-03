@@ -287,7 +287,6 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 
 ```mermaid
 %% Infographic-style ERD with colors and card styling
-
 classDiagram
     %% STUDENTS table card
     class STUDENTS {
@@ -348,7 +347,6 @@ classDiagram
 
 To see how Node.js interacts with these tables, refere to refer to `js-code` folder.
 
-```
 
 **How to run this Node.js example:**
 1.  Go to `js-code` folder and open a JS file named `CheckingDataWithNode.js`.
