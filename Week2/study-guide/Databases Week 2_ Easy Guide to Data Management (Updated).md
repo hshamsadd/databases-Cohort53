@@ -282,6 +282,9 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'C
 * Composite Primary Keys prevent duplicate relationships. One student can’t be enrolled in the same course more than once.
 
 
+**ERD Representation (Conceptual - using a simple text-based diagram for clarity):**
+
+
 ```mermaid
 erDiagram
     STUDENTS ||--o{ ENROLLMENTS : "enrolled in"
