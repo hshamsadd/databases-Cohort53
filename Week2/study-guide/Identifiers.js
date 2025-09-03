@@ -1,4 +1,4 @@
-import { setupDatabase } from '../connectDatabase.js';
+import { setupDatabase } from './connectDatabase.js';
 
 async function createTables(client) {
   await client.query(`
