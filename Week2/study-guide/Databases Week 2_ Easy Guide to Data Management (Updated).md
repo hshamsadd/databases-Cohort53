@@ -139,25 +139,33 @@ CREATE TABLE Students (
     student_name VARCHAR(100) NOT NULL,
     age INT
 );
+```
 
+```sql
 -- Insert some sample students
 INSERT INTO Students (student_id, student_name, age) VALUES
 (101, 'Alice', 20),
 (102, 'Bob', 21),
 (103, 'Charlie', 20);
+```
 
+```sql
 -- Create the Courses table
 CREATE TABLE Courses (
     course_id VARCHAR(10) PRIMARY KEY, -- Another Primary Key!
     course_name VARCHAR(100) NOT NULL,
     instructor VARCHAR(100)
 );
+```
 
+```sql
 -- Insert some sample courses
 INSERT INTO Courses (course_id, course_name, instructor) VALUES
 ('CS101', 'Intro to Computer Science', 'Mr. Smith'),
 ('MA201', 'Calculus I', 'Ms. Jones');
+```
 
+```sql
 -- Create the Enrollments table (this will use Foreign Keys and a Composite Key)
 CREATE TABLE Enrollments (
     student_id INT, -- This will be a Foreign Key
@@ -169,23 +177,31 @@ CREATE TABLE Enrollments (
     FOREIGN KEY (student_id) REFERENCES Students(student_id),
     FOREIGN KEY (course_id) REFERENCES Courses(course_id)
 );
+```
 
+```sql
 -- Insert some sample enrollments
 INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
 (101, 'CS101', '2023-09-01'),
 (101, 'MA201', '2023-09-01'),
 (102, 'CS101', '2023-09-05');
+```
 
+```sql
 -- Try to insert a student with an existing student_id (will fail because of PRIMARY KEY constraint)
 -- INSERT INTO Students (student_id, student_name, age) VALUES (101, 'David', 22);
+```
 
+```sql
 -- Try to insert an enrollment for a student that doesn't exist (will fail because of FOREIGN KEY constraint)
 -- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
+```
 
+```sql
 -- Try to insert the exact same enrollment again (will fail because of COMPOSITE PRIMARY KEY constraint)
 -- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'CS101', '2023-09-01');
-![Students table](./images/1.png)
 ```
+![Students table](./images/1.png)
 
 **2. Checking Data with Node.js**
 
