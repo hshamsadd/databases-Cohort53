@@ -141,13 +141,22 @@ CREATE TABLE Students (
 );
 ```
 
+
+![Students table](./images/1.png)
+
+
 ```sql
+
 -- Insert some sample students
 INSERT INTO Students (student_id, student_name, age) VALUES
 (101, 'Alice', 20),
 (102, 'Bob', 21),
 (103, 'Charlie', 20);
 ```
+
+
+![Students table](./images/2.png)
+
 
 ```sql
 -- Create the Courses table
@@ -158,12 +167,20 @@ CREATE TABLE Courses (
 );
 ```
 
+
+![Students table](./images/3.png)
+
+
 ```sql
 -- Insert some sample courses
 INSERT INTO Courses (course_id, course_name, instructor) VALUES
 ('CS101', 'Intro to Computer Science', 'Mr. Smith'),
 ('MA201', 'Calculus I', 'Ms. Jones');
 ```
+
+
+![Students table](./images/4.png)
+
 
 ```sql
 -- Create the Enrollments table (this will use Foreign Keys and a Composite Key)
@@ -179,6 +196,10 @@ CREATE TABLE Enrollments (
 );
 ```
 
+
+![Students table](./images/5.png)
+
+
 ```sql
 -- Insert some sample enrollments
 INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
@@ -187,21 +208,37 @@ INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES
 (102, 'CS101', '2023-09-05');
 ```
 
+
+![Students table](./images/6.png)
+
+
 ```sql
 -- Try to insert a student with an existing student_id (will fail because of PRIMARY KEY constraint)
 -- INSERT INTO Students (student_id, student_name, age) VALUES (101, 'David', 22);
 ```
+
+
+![Students table](./images/7.png)
+
 
 ```sql
 -- Try to insert an enrollment for a student that doesn't exist (will fail because of FOREIGN KEY constraint)
 -- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (999, 'CS101', '2023-09-10');
 ```
 
+
+![Students table](./images/8.png)
+
+
 ```sql
 -- Try to insert the exact same enrollment again (will fail because of COMPOSITE PRIMARY KEY constraint)
 -- INSERT INTO Enrollments (student_id, course_id, enrollment_date) VALUES (101, 'CS101', '2023-09-01');
 ```
-![Students table](./images/1.png)
+
+
+![Students table](./images/9.png)
+
+
 
 **2. Checking Data with Node.js**
 
