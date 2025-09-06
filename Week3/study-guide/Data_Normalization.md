@@ -36,7 +36,7 @@ INSERT INTO Students (student_id, student_name, courses) VALUES
 ```
 -- OUTPUT: `Students`
 <p align="center">
-<img src="./images/1.png" alt="Students table" width="200"/>
+<img src="./images/1.png" alt="Students table" width="700"/>
 </p>
 
 ✅ After (Follows 1NF – one value per cell)
@@ -67,12 +67,13 @@ INSERT INTO Enrollments (student_id, course) VALUES
 ```
 OUTPUT: `Students`
 <p align="center">
-<img src="./images/2.png" alt="Students table" width="200"/>
+<img src="./images/2.png" alt="Students table" width="700"/>
 </p>
 
 OUTPUT: `Enrollments`
 <p align="center">
-<img src="./images/3.png" alt="Students table" width="200"/>
+<img src="./images/3.png" alt="Students table" width="700"/>
+
 ---
 
 
@@ -99,7 +100,7 @@ INSERT INTO Enrollments (student_id, course_id, course_name) VALUES
 ```
 OUTPUT: `Enrollments`
 <p align="center">
-<img src="./images/4.png" alt="Students table" width="200"/>
+<img src="./images/4.png" alt="Students table" width="700"/>
 
 ✅ After (Follows 2NF – separate courses)
 ```SQL
@@ -128,11 +129,11 @@ INSERT INTO Enrollments (student_id, course_id) VALUES
 ```
 OUTPUT: `Courses`
 <p align="center">
-<img src="./images/5.png" alt="Students table" width="200"/>
+<img src="./images/5.png" alt="Students table" width="700"/>
 
 OUTPUT: `Enrollments`
 <p align="center">
-<img src="./images/6.png" alt="Students table" width="200"/>
+<img src="./images/6.png" alt="Students table" width="700"/>
 
 ---
 
@@ -319,7 +320,7 @@ INSERT INTO StudentLanguages (student_id, language) VALUES
 ```
 OUTPUT: `Students`
 <p align="center">
-<img src="./images/14.png" alt="Students table" width="700"/>
+<img src="./images/14.png" alt="Students table" width="500"/>
 
 OUTPUT: `StudentHobbies`
 <p align="center">
@@ -388,11 +389,11 @@ INSERT INTO ProjectAdvisor (project_id, advisor_id) VALUES
 ```
 OUTPUT: `StudentProjects`
 <p align="center">
-<img src="./images/18.png" alt="Students table" width="700"/>
+<img src="./images/18.png" alt="Students table" width="500"/>
 
 OUTPUT: `ProjectAdvisor`
 <p align="center">
-<img src="./images/19.png" alt="Students table" width="700"/>
+<img src="./images/19.png" alt="Students table" width="500"/>
 
 ---
 
@@ -453,6 +454,7 @@ OUTPUT: `EmployeeSalary`
 OUTPUT: `EmployeeDepartment`
 <p align="center">
 <img src="./images/22.png" alt="Students table" width="700"/>
+
 ---
 
 🎯 Summary:
