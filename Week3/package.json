@@ -1,0 +1,16 @@
+{
+  "name": "week3",
+  "version": "1.0.0",
+  "description": "## Agenda",
+  "main": "SQL-Injection.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^5.1.0",
+    "pg": "^8.16.3"
+  }
+}

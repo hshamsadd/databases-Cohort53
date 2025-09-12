@@ -34,7 +34,7 @@ INSERT INTO Students (student_id, student_name, courses) VALUES
 (1, 'Alice', 'Math, Science'),
 (2, 'Bob', 'History, Math');
 ```
--- OUTPUT: `Students`
+OUTPUT: `Students`
 <p align="center">
 <img src="./images/1.png" alt="Students table" width="700"/>
 </p>
