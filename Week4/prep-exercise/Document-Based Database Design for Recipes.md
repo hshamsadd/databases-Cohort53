@@ -18,8 +18,8 @@
 
 ## Normalized Data
 
-- **Ingredients**: If I want to store details (e.g., nutritional info), create a separate `ingredients` collection and reference by ID.
-- **Categories**: If I want to store details (e.g., descriptions), create a separate `categories` collection and reference by ID.
+- **Ingredients**: If I want to store details (e.g., nutritional info), I would create a separate `ingredients` collection and reference by ID.
+- **Categories**: If I want to store details (e.g., descriptions), I would create a separate `categories` collection and reference by ID.
 
 ---
 
